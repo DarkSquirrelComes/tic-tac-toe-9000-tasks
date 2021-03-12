@@ -20,16 +20,6 @@ class TicTacToeGame(AbstractTicTacToeGame):
         self.__winner_id = ''
         self.__current_player_id = ''
 
-
-    def current_player_id(self):
-        if self.__turns == []:
-            self.__current_player_id == self.__first_player_id
-        elif self.__turns[-1] == self.__first_player_id:
-            self.__current_player_id == self.__second_player_id
-        else:
-            self.__current_player_id == self.__first_player_id
-        
-
     def set_winner_id(self, turn):
         counter = 0 #checked lines for draw
         str1 = ''
@@ -65,27 +55,36 @@ class TicTacToeGame(AbstractTicTacToeGame):
 
 
     def is_turn_correct(self, turn: TicTacToeTurn) -> bool:
+        if self.__turns == []:
+            self.__current_player_id == self.__first_player_id
+        elif self.__turns[-1].player_id == self.__first_player_id:
+            self.__current_player_id == self.__second_player_id
+        else:
+            self.__current_player_id == self.__first_player_id
+
         if self.__winner_id != '':
+            print("self.__winner_id != ''")
             return False
         if not (0 <= turn.x_coordinate <= 2 and 0 <= turn.y_coordinate <= 2):
+            print("not (0 <= turn.x_coordinate <= 2 and 0 <= turn.y_coordinate <= 2)")
             return False
-        if turn.player_id != self.current_player_id():
+        if turn.player_id != self.__current_player_id:
+            print("turn.player_id != self.__current_player_id")
             return False
         if self.__field[turn.x_coordinate][turn.y_coordinate] != ' ':
+            print("self.__field[turn.x_coordinate][turn.y_coordinate] != ' '")
             return False
         return True
-        raise NotImplementedError
 
     def do_turn(self, turn: TicTacToeTurn) -> TicTacToeGameInfo:
         if is_turn_correct(self, turn) == False:
-            print('Incorrect turn')
+            return 'Incorrect turn'
         else:
             if self.__current_turn_player == turn.first_player_id:
                 self.__field[turn.x_coordinate][turn.y_coordinate] == 'X'
             else:
                 self.__field[turn.x_coordinate][turn.y_coordinate] == 'O'
             self.__turns.append(deepcopy(turn))
-        raise NotImplementedError
 
     def get_game_info(self) -> TicTacToeGameInfo:
         result = TicTacToeGameInfo(
