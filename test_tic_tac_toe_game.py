@@ -151,4 +151,3 @@ def test_scenario():
             y_coordinate=2
         )
     ) == False
-
