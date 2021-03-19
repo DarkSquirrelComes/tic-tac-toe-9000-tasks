@@ -56,31 +56,27 @@ class TicTacToeGame(AbstractTicTacToeGame):
 
     def is_turn_correct(self, turn: TicTacToeTurn) -> bool:
         if self.__turns == []:
-            self.__current_player_id == self.__first_player_id
+            self.__current_player_id = self.__first_player_id
         elif self.__turns[-1].player_id == self.__first_player_id:
-            self.__current_player_id == self.__second_player_id
+            self.__current_player_id = self.__second_player_id
         else:
-            self.__current_player_id == self.__first_player_id
+            self.__current_player_id = self.__first_player_id
 
         if self.__winner_id != '':
-            print("self.__winner_id != ''")
             return False
         if not (0 <= turn.x_coordinate <= 2 and 0 <= turn.y_coordinate <= 2):
-            print("not (0 <= turn.x_coordinate <= 2 and 0 <= turn.y_coordinate <= 2)")
             return False
         if turn.player_id != self.__current_player_id:
-            print("turn.player_id != self.__current_player_id")
             return False
         if self.__field[turn.x_coordinate][turn.y_coordinate] != ' ':
-            print("self.__field[turn.x_coordinate][turn.y_coordinate] != ' '")
             return False
         return True
 
     def do_turn(self, turn: TicTacToeTurn) -> TicTacToeGameInfo:
-        if is_turn_correct(self, turn) == False:
+        if self.is_turn_correct(turn) == False:
             return 'Incorrect turn'
         else:
-            if self.__current_turn_player == turn.first_player_id:
+            if turn.player_id == self.__first_player_id:
                 self.__field[turn.x_coordinate][turn.y_coordinate] == 'X'
             else:
                 self.__field[turn.x_coordinate][turn.y_coordinate] == 'O'
