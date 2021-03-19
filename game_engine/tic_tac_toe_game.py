@@ -20,7 +20,7 @@ class TicTacToeGame(AbstractTicTacToeGame):
         self.__winner_id = ''
         self.__current_player_id = ''
 
-    def set_winner_id(self, turn):
+    def set_winner_id(self, turn): #troubles are here
         counter = 0 #checked lines for draw
         str1 = ''
         str2 = ''
@@ -73,14 +73,13 @@ class TicTacToeGame(AbstractTicTacToeGame):
         return True
 
     def do_turn(self, turn: TicTacToeTurn) -> TicTacToeGameInfo:
-        if self.is_turn_correct(turn) == False:
-            return 'Incorrect turn'
-        else:
+        if self.is_turn_correct(turn) == True:
             if turn.player_id == self.__first_player_id:
-                self.__field[turn.x_coordinate][turn.y_coordinate] == 'X'
+                self.__field[turn.x_coordinate][turn.y_coordinate] = 'X'
             else:
-                self.__field[turn.x_coordinate][turn.y_coordinate] == 'O'
+                self.__field[turn.x_coordinate][turn.y_coordinate] = 'O'
             self.__turns.append(deepcopy(turn))
+            return self.get_game_info()
 
     def get_game_info(self) -> TicTacToeGameInfo:
         result = TicTacToeGameInfo(
@@ -90,10 +89,10 @@ class TicTacToeGame(AbstractTicTacToeGame):
                 [" ", " ", " "],
                 [" ", " ", " "]
             ],
-            sequence_of_turns=deepcopy(self.__turns),
-            first_player_id=self.__first_player_id,
-            second_player_id=self.__second_player_id,
-            winner_id=self.__winner_id
+            sequence_of_turns = deepcopy(self.__turns),
+            first_player_id = self.__first_player_id,
+            second_player_id = self.__second_player_id,
+            winner_id = self.__winner_id
         )
         for turn in self.__turns:
             if turn.player_id == self.__first_player_id:
