@@ -20,7 +20,7 @@ class TicTacToeGame(AbstractTicTacToeGame):
         self.__winner_id = ''
         self.__current_player_id = ''
 
-    def set_winner_id(self, turn): #troubles are here
+    def set_winner_id(self, turn):
         counter = 0 #checked lines for draw
         str1 = ''
         str2 = ''
@@ -62,6 +62,7 @@ class TicTacToeGame(AbstractTicTacToeGame):
         else:
             self.__current_player_id = self.__first_player_id
 
+        self.set_winner_id()
         if self.__winner_id != '':
             return False
         if not (0 <= turn.x_coordinate <= 2 and 0 <= turn.y_coordinate <= 2):
@@ -73,7 +74,7 @@ class TicTacToeGame(AbstractTicTacToeGame):
         return True
 
     def do_turn(self, turn: TicTacToeTurn) -> TicTacToeGameInfo:
-        if self.is_turn_correct(turn) == True:
+        if self.is_turn_correct(turn):
             if turn.player_id == self.__first_player_id:
                 self.__field[turn.x_coordinate][turn.y_coordinate] = 'X'
             else:
