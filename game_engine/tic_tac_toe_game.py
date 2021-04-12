@@ -1,5 +1,4 @@
 from copy import deepcopy
-from freeze import freezablelist as fl
 from typing import Callable, List, Optional
 from game_engine import TicTacToeTurn, TicTacToeGameInfo, AbstractTicTacToeGame
 
@@ -11,17 +10,17 @@ class TicTacToeGame(AbstractTicTacToeGame):
         self.__game_id = game_id
         self.__first_player_id = first_player_id
         self.__second_player_id = second_player_id
-        self.__field = fl([ 
+        self.__field = [ 
             [' ', ' ', ' '],
             [' ', ' ', ' '],
             [' ', ' ', ' ']
-        ])  # freezing the field at the begining
+        ]
         self.__strategy = strategy
         self.__turns = []
         self.__winner_id = ''
         self.__current_player_id = ''
 
-    def set_winner_id(self, turn):
+    def set_winner_id(self, turn): #troubles are here
         counter = 0 #checked lines for draw
         str1 = ''
         str2 = ''
@@ -76,18 +75,17 @@ class TicTacToeGame(AbstractTicTacToeGame):
     def do_turn(self, turn: TicTacToeTurn) -> TicTacToeGameInfo:
         if self.is_turn_correct(turn) == True:
             if turn.player_id == self.__first_player_id:
-                self.__field = list(self.__field) # unfreezing the list, smth weird, but let it be
                 self.__field[turn.x_coordinate][turn.y_coordinate] = 'X'
             else:
                 self.__field[turn.x_coordinate][turn.y_coordinate] = 'O'
             self.__turns.append(deepcopy(turn))
             return self.get_game_info()
-            self.__field.freeze() #trying to freeze again
+            self.__field = deepcopy(self.__field)
 
     def get_game_info(self) -> TicTacToeGameInfo:
         result = TicTacToeGameInfo(
             game_id = self.__game_id,
-            field = self.__field,
+            field = deepcopy(self.__field),
             sequence_of_turns = deepcopy(self.__turns),
             first_player_id = self.__first_player_id,
             second_player_id = self.__second_player_id,
