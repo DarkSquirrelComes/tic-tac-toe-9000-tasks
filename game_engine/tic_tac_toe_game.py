@@ -20,7 +20,7 @@ class TicTacToeGame(AbstractTicTacToeGame):
         self.__winner_id = ''
         self.__current_player_id = ''
 
-    def set_winner_id(self, turn):
+    def set_winner_id(self):
         counter = 0 #checked lines for draw
         str1 = ''
         str2 = ''
@@ -82,6 +82,7 @@ class TicTacToeGame(AbstractTicTacToeGame):
             self.__turns.append(deepcopy(turn))
             return self.get_game_info()
             self.__field = deepcopy(self.__field)
+            self.set_winner_id()
 
     def get_game_info(self) -> TicTacToeGameInfo:
         result = TicTacToeGameInfo(

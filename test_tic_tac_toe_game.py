@@ -125,6 +125,8 @@ def test_scenario():
     game.do_turn(TicTacToeTurn("Vasya", 1, 1))
     game.do_turn(TicTacToeTurn("Petya", 0, 2))
 
+    game_info = game.get_game_info()
+    assert game_info.winner_id == "Petya"
     assert game.get_game_info() == TicTacToeGameInfo(
         game_id="0001",
         field=[
