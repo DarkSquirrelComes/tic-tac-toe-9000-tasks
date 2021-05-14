@@ -126,7 +126,7 @@ def test_scenario():
     game.do_turn(TicTacToeTurn("Petya", 0, 2))
 
     game_info = game.get_game_info()
-    assert game_info.winner_id == "Petya" #extra lines for check
+    assert game_info.winner_id == "Petya" #extra line for check
     assert game.get_game_info() == TicTacToeGameInfo(
         game_id="0001",
         field=[
@@ -153,5 +153,3 @@ def test_scenario():
             y_coordinate=2
         )
     ) == False
-
-test_scenario()

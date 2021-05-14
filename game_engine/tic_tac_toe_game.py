@@ -85,6 +85,7 @@ class TicTacToeGame(AbstractTicTacToeGame):
             self.set_winner_id()
 
     def get_game_info(self) -> TicTacToeGameInfo:
+        self.set_winner_id() #what for
         result = TicTacToeGameInfo(
             game_id = self.__game_id,
             field = deepcopy(self.__field),
