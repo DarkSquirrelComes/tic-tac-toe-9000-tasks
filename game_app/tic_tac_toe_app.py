@@ -1,3 +1,4 @@
 import requests as re
 
-class TicTacToeApp
+class TicTacToeApp(AbstractTicTacToeApp):
+    
